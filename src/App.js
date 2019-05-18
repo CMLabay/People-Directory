@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import SearchBar from './SearchBar/SearchBar'
 import ResultsList from './ResultsList/ResultsList'
+import logo from './logo_footer.png';
 
 export default class App extends Component {
   constructor(props){
@@ -53,7 +54,10 @@ export default class App extends Component {
   render(){
     return (
       <section className='App'>
-        <h2>iOffice People Directory</h2>
+        <header>
+          <img src={logo} alt="iOffice logo"></img>
+          <p>People Directory</p>
+        </header>
         <SearchBar
           onSearch={this.handleSearch}
           onChange={this.handleTextChange}/>

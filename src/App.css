@@ -1,3 +1,9 @@
 .App{
     text-align: center;
 }
+img{
+    height: 40px;
+    float:left;
+    padding-left:200px;
+    padding-right:0;
+}
