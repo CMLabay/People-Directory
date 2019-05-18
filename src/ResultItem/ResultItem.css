@@ -1,0 +1,6 @@
+.result-item{
+    list-style:none;
+}
+.result-item p{
+    display:inline;
+}
