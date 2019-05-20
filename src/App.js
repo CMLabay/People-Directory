@@ -9,10 +9,14 @@ export default class App extends Component {
     super(props);
     this.state = {
       searchText:'',
+      filter: '&filterType=Name',
       resNum:0,
-      name:[],
-      email:[],
-      phone:[],
+      res: {
+        name:[],   
+        email:[],
+        phone:[],
+        title:[],   
+      }
     }
   }
 
@@ -27,45 +31,60 @@ export default class App extends Component {
     })
     .then(response => response.json())
     .then(data => {
-      let phone = [];
-      let email = [];
-      let name = [];
-      for(let i = 0; i<data.length;i++){
-        phone[i] = data[i].phone;
-        email[i] = data[i].email;
-        name[i] = data[i].name;
+      let res = {
+        name:[],  
+        email:[],
+        phone:[],
+        title:[],     
+      }
+      for(let i = 0; i<data.length;i++){      
+        res.phone[i] = data[i].phone;
+        res.email[i] = data[i].email;
+        res.name[i] = data[i].lastName + ', ' + data[i].firstName;
+        res.title[i] = data[i].jobTitle;  
     }
     let resNum = data.length;
-    this.setState({phone, name, email, resNum})
-    console.log(data)
+    this.setState({res,resNum})
     })
     .catch(console.log('error'))
   }
 
   //search and filtering functions
-  //need to add api call when the App Compnonent renders
-  handleTextChange = () => {
-    console.log('text change')
+  handleTextChange = (e, filterType) => {
+    console.log('text ', e)
+    let searchString = e
+    //begin filtering the results
+    function filterResults(searchString,) {
+     let testRegex = `/${searchString}/i`;
+      let property = filterType;
+      //for(let i = 0; i<this.res[property].length;i++){   
+     // }
+     //console.log('fil ', this.state.res )
+     //return testRegex.test(this.state.res[property])  ;
+    }
+    //let filtered = filterResults(e);
+    //let filtered = this.res.filter(filterResults);
+    //do not need to make an api call again, just filter the existing set of data
+    //this.setState({searchText:"q="+text})
   }
-  handleSearch = () => {
-    console.log('search')
-  }
+  handleFilterChange = (filterType) => {
+    this.setState({filter:"&filterType="+filterType})
+}
 
   render(){
+    console.log(this.state.res)
     return (
       <section className='App'>
         <header>
           <img src={logo} alt="iOffice logo"></img>
-          <p>People Directory</p>
+          <p className="title">People Directory</p>
         </header>
         <SearchBar
-          onSearch={this.handleSearch}
-          onChange={this.handleTextChange}/>
+          onSearchChange={this.handleTextChange}
+          onFilterChange={this.handleFilterChange}/>
         <ResultsList 
-          name={this.state.name}
-          phone={this.state.phone}
-          email={this.state.email} 
-          resNum={this.state.resNum}/>  
+          resNum={this.state.resNum}
+          res={this.state.res}/>  
       </section>
     );
   }

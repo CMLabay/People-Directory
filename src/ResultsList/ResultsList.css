@@ -7,9 +7,14 @@
   }
   Td{
     text-align:left;
+    border-bottom:1px solid lightgrey;
+    font-size:16px;
+    padding-top:4px;
+    padding-bottom:4px;
   }
   Th{
-    text-align: center;
+    text-align: left;
+    border-bottom:1px solid grey;
   }
   
   @media screen and (max-width: 40em) {

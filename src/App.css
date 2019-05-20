@@ -1,9 +1,21 @@
-.App{
-    text-align: center;
-}
+
 img{
     height: 40px;
     float:left;
-    padding-left:200px;
-    padding-right:0;
+    padding-left:39%;
+    padding-right:15px;
+}
+header > p{
+    text-align:left;
+    padding-top:15px;
+}
+header{
+    text-align:center;
+}
+.title{
+    padding-left:20px;
+}
+p{
+    font-family: 'arial', sans-serif;
+    font-size: 27px;
 }

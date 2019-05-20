@@ -4,28 +4,29 @@ import './ResultsList.css'
 import ResultItem from '../ResultItem/ResultItem'
 
 let id = 0;
-function createData(name, phone, email) {
+function createData(name, phone, title, email) {
   id += 1;
-  return { id, name, phone, email };
+  return { id, name, phone, title, email };
 }
 
 export default class ResultsList extends Component{
     render(){
         //must pass in returned data from API
-        const {name, phone, email, resNum } = this.props;
+        const {resNum, res} = this.props;
         let rows = [];
         for(let i = 0; i<resNum;i++){
-            if(phone[i] == null | phone[i] == ''){
-                phone[i] = '--';
+            if(res.phone[i] == null | res.phone[i] == ''){
+                res.phone[i] = '--';
             }
-            rows[i] = createData(name[i], phone[i], email[i])
+            rows[i] = createData(res.name[i], res.phone[i], res.title[i], res.email[i])
         }
         return(
             <Table>
                 <Thead>
                     <Tr>
                         <Th>Name</Th>
-                        <Th>Phone/Extension</Th>
+                        <Th>Position</Th>
+                        <Th>Phone/Ext</Th>
                         <Th>Email</Th>
                     </Tr>
                 </Thead>
@@ -33,9 +34,11 @@ export default class ResultsList extends Component{
                     {rows.map(row => (
                         <Tr key={row.id}>
                             <Td>{row.name}</Td>
+                            <Td>{row.title}</Td>
                             <Td>{row.phone}</Td>
                             <Td>
-                                <a href={"mailto:"+row.email}>{row.email}</a></Td>
+                                <a href={"mailto:"+row.email}>{row.email}</a>
+                            </Td>
                         </Tr>
                     ))}
                 </Tbody>
