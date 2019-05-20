@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import './ResultsList.css'
-import ResultItem from '../ResultItem/ResultItem'
 
 let id = 0;
 function createData(name, phone, title, email) {
@@ -18,6 +17,7 @@ export default class ResultsList extends Component{
             if(res.phone[i] == null | res.phone[i] == ''){
                 res.phone[i] = '--';
             }
+            
             rows[i] = createData(res.name[i], res.phone[i], res.title[i], res.email[i])
         }
         return(
@@ -32,7 +32,8 @@ export default class ResultsList extends Component{
                 </Thead>
                 <Tbody>
                     {rows.map(row => (
-                        <Tr key={row.id}>
+                        <Tr key={row.id}
+                            className={(row.id % 2 == 0 ? "shade" : "plain")}>
                             <Td>{row.name}</Td>
                             <Td>{row.title}</Td>
                             <Td>{row.phone}</Td>

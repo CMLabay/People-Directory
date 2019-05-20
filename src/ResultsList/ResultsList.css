@@ -5,16 +5,24 @@
   .responsiveTable td .tdBefore {
     display: none;
   }
+  a{
+    color:#2aabd6;
+    text-decoration:none;
+  }
+  .shade{
+    background-color:#f4f7fc;
+}
   Td{
     text-align:left;
-    border-bottom:1px solid lightgrey;
     font-size:16px;
     padding-top:4px;
     padding-bottom:4px;
+    color:#383c3d;
   }
   Th{
     text-align: left;
     border-bottom:1px solid grey;
+    color:#888989;
   }
   
   @media screen and (max-width: 40em) {
@@ -46,10 +54,10 @@
   
     .responsiveTable td.pivoted {
       /* Behave like a "row" */
-      border: none !important;
+      border: none;
       position: relative;
-      padding-left: 50% !important;
-      text-align: left !important;
+      padding-left: 50%;
+      text-align: left;
     }
   
     .responsiveTable td .tdBefore {
@@ -62,7 +70,7 @@
       width: 45%;
       padding-right: 10px;
       white-space: nowrap;
-      text-align: left !important;
+      text-align: left;
       font-weight: 600;
     }
   }

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import './App.css'
 import SearchBar from './SearchBar/SearchBar'
 import ResultsList from './ResultsList/ResultsList'
-import logo from './logo_footer.png';
+import logo from './logo_footer.png'
+import Pages from './Pages/Pages'
 
 export default class App extends Component {
   constructor(props){
@@ -11,6 +12,7 @@ export default class App extends Component {
       searchText:'',
       filter: '&filterType=Name',
       resNum:0,
+      pageNum:1,
       res: {
         name:[],   
         email:[],
@@ -31,8 +33,11 @@ export default class App extends Component {
       e.preventDefault()
     }
     let url = this.props.url
+    let startAt = (this.state.pageNum - 1) *50
     if(this.state.searchText != ''){
-      url = `${url}&search=${this.state.searchText}`
+      url = `${url}&startAt=${startAt}&search=${this.state.searchText}`
+    } else {
+      url = `${url}&startAt=${startAt}`
     }
     fetch(url, {
       method: 'get',
@@ -63,6 +68,22 @@ export default class App extends Component {
   handleTextChange = (text) => {
     this.setState({searchText:text})
   }
+  handleBrowseForward = (e) => {
+    e.preventDefault();
+    let newPage = this.state.pageNum + 1;
+    this.setState({pageNum:newPage})
+    this.handleSearch('')
+    console.log('pg ', this.state.pageNum)
+  }
+  handleBrowseBackward = (e) => {
+    e.preventDefault();
+    if(this.state.pageNum > 1){
+      let newPage = this.state.pageNum - 1;
+      this.setState({pageNum:newPage})
+      this.handleSearch('')
+      console.log('pg ', this.state.pageNum)
+    }
+  }
 
   render(){
     return (
@@ -74,6 +95,11 @@ export default class App extends Component {
         <SearchBar
           onSearch={this.handleSearch}
           onChange={this.handleTextChange}/>
+        <Pages className='browse'
+          onBrowseForward = {this.handleBrowseForward}
+          onBrowseBackward = {this.handleBrowseBackward}
+          pageNum = {this.state.pageNum}
+          resNum = {this.state.resNum}/>
         <ResultsList 
           resNum={this.state.resNum}
           res={this.state.res}/>  
