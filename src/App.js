@@ -22,7 +22,19 @@ export default class App extends Component {
 
   componentDidMount(){
     //need to do this securly, for now, it works
-    fetch(this.props.url, {
+    this.handleSearch('')
+  }
+
+  //search function
+  handleSearch = (e) => {
+    if(e){
+      e.preventDefault()
+    }
+    let url = this.props.url
+    if(this.state.searchText != ''){
+      url = `${url}?search=${this.state.searchText}`
+    }
+    fetch(url, {
       method: 'get',
       headers: new Headers({
         'x-auth-username':'clabay',
@@ -48,31 +60,11 @@ export default class App extends Component {
     })
     .catch(console.log('error'))
   }
-
-  //search and filtering functions
-  handleTextChange = (e, filterType) => {
-    console.log('text ', e)
-    let searchString = e
-    //begin filtering the results
-    function filterResults(searchString,) {
-     let testRegex = `/${searchString}/i`;
-      let property = filterType;
-      //for(let i = 0; i<this.res[property].length;i++){   
-     // }
-     //console.log('fil ', this.state.res )
-     //return testRegex.test(this.state.res[property])  ;
-    }
-    //let filtered = filterResults(e);
-    //let filtered = this.res.filter(filterResults);
-    //do not need to make an api call again, just filter the existing set of data
-    //this.setState({searchText:"q="+text})
+  handleTextChange = (text) => {
+    this.setState({searchText:text})
   }
-  handleFilterChange = (filterType) => {
-    this.setState({filter:"&filterType="+filterType})
-}
 
   render(){
-    console.log(this.state.res)
     return (
       <section className='App'>
         <header>
@@ -80,8 +72,8 @@ export default class App extends Component {
           <p className="title">People Directory</p>
         </header>
         <SearchBar
-          onSearchChange={this.handleTextChange}
-          onFilterChange={this.handleFilterChange}/>
+          onSearch={this.handleSearch}
+          onChange={this.handleTextChange}/>
         <ResultsList 
           resNum={this.state.resNum}
           res={this.state.res}/>  

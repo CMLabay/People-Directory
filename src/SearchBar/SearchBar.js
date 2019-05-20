@@ -7,8 +7,8 @@ class SearchBar extends Component{
         return(
             <section className="searchBar">
             <SearchInput
-                onSearchChange={this.props.onSearchChange}
-                onFilterChange={this.props.onFilterChange}/>
+                onSearch={this.props.onSearch}
+                onChange={this.props.onChange}/>
             </section>
         );
     }
