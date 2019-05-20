@@ -32,7 +32,7 @@ export default class App extends Component {
     }
     let url = this.props.url
     if(this.state.searchText != ''){
-      url = `${url}?search=${this.state.searchText}`
+      url = `${url}&search=${this.state.searchText}`
     }
     fetch(url, {
       method: 'get',
